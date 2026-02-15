@@ -1,5 +1,5 @@
 {
-  "name": "Webpage-Builder",
+  "name": "WebpageBuilder",
   "version": "1.0.0",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.0",
