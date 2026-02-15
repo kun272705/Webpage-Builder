@@ -10,7 +10,7 @@ build_js() {
 
     npx rollup -i "$input" -o "${output/%.js/.combined.js}" --failAfterWarnings
 
-    npx babel --presets @babel/preset-env "${output/%.js/.combined.js}" -o "${output/%.js/.transpiled.js}"
+    npx babel "${output/%.js/.combined.js}" -o "${output/%.js/.transpiled.js}"
 
     npx rollup -p node-resolve -p commonjs -i "${output/%.js/.transpiled.js}" -o "${output/%.js/.bundled.js}" --failAfterWarnings
 
