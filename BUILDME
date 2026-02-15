@@ -9,6 +9,9 @@ npm install
 
 mkdir -p target/
 
+echo -e "\nsource/pub.favicon/favicon.ico -> target/pub/favicon.ico"
+cp source/pub.favicon/favicon.ico target/pub/favicon.ico
+
 for dir in source/*.*/; do
   
   dir="${dir%/}"
