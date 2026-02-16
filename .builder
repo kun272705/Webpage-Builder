@@ -18,6 +18,10 @@ build_html() {
   local output="$2"
 
   # TODO
+  if [ -f "$input" ]; then
+    
+    echo -e "\n$input -> $output"
+  fi
 }
 
 build_css() {
@@ -25,7 +29,12 @@ build_css() {
   local input="$1"
   local output="$2"
 
-  # TODO
+  if [ -f "$input" ]; then
+    
+    echo -e "\n$input -> $output"
+
+    npx lightningcss "$input" -o "$output" --browserslist --bundle --minify
+  fi
 }
 
 build_js() {

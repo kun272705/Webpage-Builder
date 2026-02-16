@@ -5,6 +5,7 @@
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@swc/cli": "^0.8.0",
+    "lightningcss-cli": "^1.31.1",
     "rollup": "^4.57.1",
     "terser": "^5.46.0"
   }
