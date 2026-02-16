@@ -1,4 +1,17 @@
 
+copy_entry() {
+
+  local input="$1"
+  local output="$2"
+
+  if [ -e "$input" ]; then
+
+    echo -e "\n$input -> $output"
+
+    cp -r "$input" "$output"
+  fi
+}
+
 build_js() {
 
   local input="$1"
