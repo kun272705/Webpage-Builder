@@ -23,7 +23,7 @@ build_html() {
 
     mkdir -p "$(dirname output)"
 
-    if [[ ${NODE_ENV:="production"} == "development" ]]; then
+    if [[ "${NODE_ENV:=production}" == "development" ]]; then
 
       npx ejs "$input" -o "$output"
     else
@@ -42,7 +42,7 @@ build_css() {
     
     echo -e "\n'$input' -> '$output'"
 
-    if [[ ${NODE_ENV:="production"} == "development" ]]; then
+    if [[ "${NODE_ENV:=production}" == "development" ]]; then
 
       npx lightningcss "$input" -o "$output" --bundle --browserslist
     else
@@ -67,7 +67,7 @@ build_js() {
     
     sed -i -e "/^import/d" "${output/%.js/.transpiled.js}"
 
-    if [[ ${NODE_ENV:="production"} == "development" ]]; then
+    if [[ "${NODE_ENV:=production}" == "development" ]]; then
 
       cp "${output/%.js/.transpiled.js}" "$output"
     else
