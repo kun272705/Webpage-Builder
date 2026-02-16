@@ -21,6 +21,8 @@ build_html() {
     
     echo -e "\n'$input' -> '$output'"
 
+    mkdir -p "$(dirname output)"
+
     if [[ ${NODE_ENV:="production"} == "development" ]]; then
 
       npx ejs "$input" -o "$output"
