@@ -81,7 +81,7 @@ build_js() {
   fi
 }
 
-build_handler() {
+build_java() {
 
   local input="$1"
   local output="$2"
