@@ -41,8 +41,6 @@ for dir in src/pub.*/; do
     build_css "$dir/$name.css" "tgt/$dir2/$name.css"
 
     build_js "$dir/$name.js" "tgt/$dir2/$name.js"
-
-    build_java "$dir/$name.java" "tgt/$dir2/$name.jar"
   fi
 done
 

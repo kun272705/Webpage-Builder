@@ -85,16 +85,3 @@ build_js() {
     rm -f "${output/%.js/.compressed.js}"
   fi
 }
-
-build_java() {
-
-  local input="$1"
-  local output="$2"
-
-  if [ -f "$input" ]; then
-
-    echo -e "\n'$input' -> '$output'"
-
-    # TODO
-  fi
-}
