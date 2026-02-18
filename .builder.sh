@@ -85,11 +85,6 @@ build_jar() {
 
     local args=("-C" "$outdir" "Handler.class")
 
-    if [ -d "${indir}locales/" ]; then
-
-      args+=("-C" "$indir" "locales/")
-    fi
-
     if [ -f "${indir}${name}.html" ]; then
 
       if [[ "${NODE_ENV:-production}" == development ]]; then
@@ -101,6 +96,11 @@ build_jar() {
       fi
 
       args+=("-C" "$outdir" "template.html")
+    fi
+
+    if [ -d "${indir}locales/" ]; then
+
+      args+=("-C" "$indir" "locales/")
     fi
 
     jar -c -f "$output" "${args[@]}"
