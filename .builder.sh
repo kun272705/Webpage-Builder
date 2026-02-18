@@ -96,5 +96,14 @@ build_java() {
   if [ -f "$input" ]; then
 
     echo -e "\n'$input' -> '$output'"
+
+    local indir="${input%/*}"
+    local outdir="${output%/*}"
+
+    javac -cp "tgt/lib/*.jar" "$indir/*.java" -d "$outdir/classes/"
+
+    jar -c -f "$output" -C "$outdir/classes/" ../classes/
+
+    rm -r "$outdir/classes/"
   fi
 }
