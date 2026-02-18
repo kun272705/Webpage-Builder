@@ -17,27 +17,6 @@ copy_file() {
   fi
 }
 
-build_html() {
-
-  local input="$1"
-  local output="$2"
-
-  if [ -f "$input" ]; then
-    
-    echo -e "\n'$input' -> '$output'"
-
-    mkdir -p "${output%/*}"
-
-    if [[ "${NODE_ENV:-production}" == development ]]; then
-
-      npx ejs "$input" -o "$output"
-    else
-
-      npx ejs "$input" -o "$output" -w
-    fi
-  fi
-}
-
 build_css() {
 
   local input="$1"
@@ -88,7 +67,7 @@ build_js() {
   fi
 }
 
-build_java() {
+build_jar() {
 
   local input="$1"
   local output="$2"
@@ -97,19 +76,36 @@ build_java() {
 
     echo -e "\n'$input' -> '$output'"
 
-    local indir="${input%/*}"
-    local outdir="${output%/*}"
+    local indir="${input%/*}/"
+    local outdir="${output%/*}/"
+    local name="${input##*/}"
+    name="${name%.*}"
 
-    javac -cp "java_modules/*.jar" "$indir/*.java" -d "$outdir/classes/"
+    javac -cp "java_modules/*.jar" "$input" -d "$outdir"
 
-    if [ -d "$indir/locales/" ]; then
+    local args=("-C" "$outdir" "Handler.class")
 
-      jar -v -c -f "$output" -C "$outdir/classes/" ./ -C "$indir/" locales/
-    else
+    if [ -d "${indir}locales/" ]; then
 
-      jar -v -c -f "$output" -C "$outdir/classes/" ./
+      args+=("-C" "$indir" "locales/")
     fi
 
-    rm -r "$outdir/classes/"
+    if [ -f "${indir}${name}.html" ]; then
+
+      if [[ "${NODE_ENV:-production}" == development ]]; then
+
+        npx ejs "${indir}${name}.html" -o "${outdir}template.html"
+      else
+
+        npx ejs "${indir}${name}.html" -o "${outdir}template.html" -w
+      fi
+
+      args+=("-C" "$outdir" "template.html")
+    fi
+
+    jar -c -f "$output" "${args[@]}"
+
+    rm "${outdir}Handler.class"
+    rm -f "${outdir}template.html"
   fi
 }
