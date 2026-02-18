@@ -13,7 +13,7 @@ copy_item() {
 
     mkdir -p "${dst%/*}"
 
-    cp -r -T "$src" "$dst"
+    cp "$src" "$dst"
   fi
 }
 
