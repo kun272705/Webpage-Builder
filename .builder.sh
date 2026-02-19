@@ -28,21 +28,19 @@ build_jar() {
 
     local indir="${input%/*}/"
     local outdir="${output%/*}/"
-    local name="${input##*/}"
-    name="${name%.*}"
 
     javac -cp "java_packages/*" "$input" -d "$outdir"
 
     local args=("-C" "$outdir" "Handler.class")
 
-    if [ -f "${indir}${name}.html" ]; then
+    if [ -f "${input/%.java/.html}" ]; then
 
       if [[ "${NODE_ENV:-production}" == development ]]; then
 
-        npx ejs "${indir}${name}.html" -o "${outdir}template.html"
+        npx ejs "${input/%.java/.html}" -o "${outdir}template.html"
       else
 
-        npx ejs "${indir}${name}.html" -o "${outdir}template.html" -w
+        npx ejs "${input/%.java/.html}" -o "${outdir}template.html" -w
       fi
 
       args+=("-C" "$outdir" "template.html")
