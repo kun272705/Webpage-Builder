@@ -53,7 +53,7 @@ build_jar() {
 
     jar -c -f "$output" "${args[@]}"
 
-    rm "${outdir}classes/"
+    rm -r "${outdir}classes/"
     rm -f "${outdir}template.html"
   fi
 }
